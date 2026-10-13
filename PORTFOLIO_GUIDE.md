@@ -303,4 +303,56 @@ Do not publish or deploy without my confirmation.
 
 Deliver a premium, responsive freelancing portfolio for Stalin AI Studio featuring four projects, professional service descriptions, project previews and working contact links.
 
-Start by inspecting the workspace. Then build Phase 1, run the website and verify the browser preview. Do not deploy until I approve it.
+Start by inspecting the workspace. Then build Phase 1, run the website and verify the browser preview. Do not deploy until I approve it.                 
+# DIRECT IMPLEMENTATION MODE — STALIN AI STUDIO
+
+## 1. Core Rule
+When I provide a task, implement the requested changes directly in the existing project. Focus on completing the requested work instead of performing tests or verification.
+
+## 2. Do Not Test
+- Do not run automated tests or test suites.
+- Do not run test commands, lint commands, or build verification commands.
+- Do not open the browser to test the application.
+- Do not use browser automation or browser testing tools.
+- Do not perform extra verification after implementing the requested changes.
+- Do not repeatedly inspect the same files or re-check completed work unnecessarily.
+
+## 3. Direct Coding Workflow
+1. Read my prompt carefully.
+2. Inspect only the files necessary to understand the requested change.
+3. Implement the change immediately.
+4. Keep changes limited to the requested scope.
+5. Do not make unrelated improvements or redesign other sections.
+6. Do not ask unnecessary questions when reasonable implementation choices can be made.
+7. Do not stop to request approval between normal coding steps.
+8. If a genuinely necessary permission or missing requirement blocks progress, explain the blocker briefly.
+
+## 4. Existing Project Protection
+- Preserve the existing project structure and technology stack.
+- Reuse existing components, styles, assets, and functions whenever appropriate.
+- Do not delete existing features or overwrite unrelated files.
+- Do not invent API endpoints, credentials, project features, or working URLs.
+- Never expose secrets, API keys, or private user data.
+- Do not change Firebase security rules or authentication settings unless explicitly requested.
+
+## 5. Commands and Permissions
+- Avoid terminal commands unless they are necessary for the requested implementation.
+- Do not run test, lint, or build commands automatically.
+- Never bypass mandatory security restrictions or permission requirements.
+- If a command requires permission, follow the platform's permission process.
+
+## 6. Completion Response
+After implementing the requested changes:
+- Briefly state what was changed.
+- List the important files modified.
+- Mention any genuine blocker if implementation could not be completed.
+- Do not claim that the changes were tested or verified.
+- Do not provide unnecessary explanations or ask me to approve the completed work.
+
+## 7. Deployment
+- Never deploy, publish, push to production, or modify live services unless I explicitly request it.
+
+## Final Instruction
+My default preference is DIRECT IMPLEMENTATION WITHOUT TESTING.
+
+Implement the exact task I request, then stop. Do not automatically test, verify, preview, or deploy the result.

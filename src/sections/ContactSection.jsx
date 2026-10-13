@@ -154,17 +154,21 @@ export const ContactSection = ({ defaultServiceTopic = '' }) => {
                     style={{
                       width: 44,
                       height: 44,
-                      borderRadius: 'var(--radius-sm)',
-                      background: 'rgba(16, 185, 129, 0.12)',
-                      border: '1px solid rgba(16, 185, 129, 0.25)',
+                      borderRadius: 10,
+                      background: '#0a0d18',
+                      border: '1px solid rgba(16, 185, 129, 0.35)',
+                      overflow: 'hidden',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: '#34d399',
                       flexShrink: 0
                     }}
                   >
-                    <MessageCircle style={{ width: 20, height: 20 }} />
+                    <img
+                      src="/stalin-ai-logo.png"
+                      alt="Stalin AI Studio"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
                   </div>
                   <div>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.725rem', color: 'var(--text-dim)', textTransform: 'uppercase' }}>

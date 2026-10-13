@@ -29,7 +29,7 @@ export const Navbar = ({ activeSection, onNavigate }) => {
   return (
     <header className={`site-header ${isScrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
-        {/* Brand Logo with Custom Stalin AI Studio Emblem */}
+        {/* Brand Logo */}
         <a
           href="#home"
           onClick={(e) => {
@@ -39,12 +39,8 @@ export const Navbar = ({ activeSection, onNavigate }) => {
           className="brand-logo"
           aria-label="Stalin AI Studio Home"
         >
-          <div className="brand-icon" style={{ padding: 0, background: '#0a0d18', border: '1px solid rgba(139, 92, 246, 0.4)', overflow: 'hidden' }}>
-            <img
-              src="/stalin-ai-logo.png"
-              alt="Stalin AI Studio Logo"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
+          <div className="brand-icon">
+            <span>S</span>
             <span className="brand-status-dot"></span>
           </div>
           <div className="brand-text-wrap">

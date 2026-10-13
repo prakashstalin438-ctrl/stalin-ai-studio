@@ -10,18 +10,21 @@ export const Footer = ({ onNavigate }) => {
     <footer style={{ borderTop: '1px solid var(--border-subtle)', background: '#05070c', paddingTop: 64, paddingBottom: 48, position: 'relative' }}>
       <div className="container">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 40, marginBottom: 56 }}>
-          {/* Brand Info with Custom Stalin AI Studio Logo */}
+          {/* Brand Info */}
           <div style={{ gridColumn: 'span 2' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
               <div
                 style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: 12,
+                  width: 38,
+                  height: 38,
+                  borderRadius: 10,
                   background: '#0a0d18',
-                  border: '1px solid rgba(139, 92, 246, 0.4)',
+                  border: '1px solid rgba(139, 92, 246, 0.35)',
                   overflow: 'hidden',
-                  flexShrink: 0
+                  flexShrink: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}
               >
                 <img
