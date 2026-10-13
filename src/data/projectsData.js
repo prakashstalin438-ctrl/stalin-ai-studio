@@ -42,8 +42,9 @@ export const projectsData = [
       { label: 'Offline Support', value: '100% PWA' },
       { label: 'Bundle Size', value: '< 95 KB' }
     ],
-    liveDemoAvailable: false,
-    demoNote: 'Detailed interactive preview and verified screenshot gallery available below.'
+    liveDemoAvailable: true,
+    liveDemoUrl: 'https://genai-60-day-tracker.web.app',
+    demoNote: 'Live web app running on Firebase Hosting. Interactive preview and screenshots below.'
   },
   {
     id: 'novacart-dashboard',
