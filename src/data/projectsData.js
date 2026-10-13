@@ -82,8 +82,9 @@ export const projectsData = [
       { label: 'Conversion Rate', value: '3.72%' },
       { label: 'Stock Health', value: '91% Adequate' }
     ],
-    liveDemoAvailable: false,
-    demoNote: 'High-density SaaS layout showcase with verified architecture details.'
+    liveDemoAvailable: true,
+    liveDemoUrl: 'https://novacart-dashboard.vercel.app/',
+    demoNote: 'Live web app running on Vercel. High-density SaaS layout showcase with verified architecture details.'
   },
   {
     id: 'ai-job-apply',
