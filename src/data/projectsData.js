@@ -165,7 +165,8 @@ export const projectsData = [
       { label: 'Privacy Mode', value: 'Strictly Isolated' },
       { label: 'Public Demo Data', value: 'Sample & Dummy' }
     ],
-    liveDemoAvailable: false,
+    liveDemoAvailable: true,
+    liveDemoUrl: 'https://star-love-journal-demo.vercel.app/',
     demoNote: 'Public concept demo with sanitized sample media and dummy memories.'
   }
 ];
