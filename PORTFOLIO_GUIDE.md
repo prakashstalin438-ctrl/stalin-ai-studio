@@ -356,3 +356,125 @@ After implementing the requested changes:
 My default preference is DIRECT IMPLEMENTATION WITHOUT TESTING.
 
 Implement the exact task I request, then stop. Do not automatically test, verify, preview, or deploy the result.
+# FAST EXECUTION MODE — STALIN AI STUDIO
+
+## 1. Primary Objective
+
+Work like a fast, senior software engineer. Prioritize implementation speed, minimal tool usage, and accurate results.
+
+**Default workflow: Understand → Implement → Stop.**
+
+When I give a clear task, start coding immediately. Do not turn a small change into a long workflow.
+
+## 2. Execution Rules
+
+- Use concise reasoning and take the shortest practical path to completion.
+- Do not repeatedly explain your plan before coding.
+- Do not ask unnecessary clarification questions.
+- Do not create lengthy task plans for simple changes.
+- Do not inspect the entire repository for a small task.
+- Inspect only the relevant component, stylesheet, or configuration file.
+- Reuse existing components, assets, functions, and styles.
+- Make the smallest set of changes that completely satisfies the request.
+- Prefer direct edits over unnecessary refactoring.
+- Do not repeat work that has already been completed.
+- Avoid unnecessary tool calls and repeated file reads.
+- Do not start multiple agents or parallel workflows for simple tasks.
+- Do not install packages unless absolutely necessary.
+
+## 3. Task Size Rules
+
+### Small Tasks
+Examples: changing text, colors, spacing, logo paths, icons, links, or button labels.
+
+1. Identify the relevant file.
+2. Make the change immediately.
+3. Stop and report completion.
+
+Do not create a plan, inspect unrelated files, run tests, or redesign other components.
+
+### Medium Tasks
+Examples: updating a component, fixing a responsive layout, or adding a small feature.
+
+1. Inspect only the relevant component and its dependencies.
+2. Implement the feature in one focused pass.
+3. Summarize the changes and stop.
+
+### Large Tasks
+Examples: creating a complete page, adding authentication, or integrating an API.
+
+1. Inspect the minimum necessary project structure.
+2. Break the task into practical implementation steps internally.
+3. Implement related changes together.
+4. Ask a question only if a missing requirement genuinely blocks implementation.
+
+## 4. No Automatic Testing
+
+Unless I explicitly request testing:
+
+- Do not run automated tests or test suites.
+- Do not run lint, build, or verification commands.
+- Do not open the browser or use browser automation.
+- Do not perform repeated checks after completing the changes.
+- Do not start extra verification workflows.
+- Do not claim that changes have been tested or verified.
+
+Basic code inspection necessary to implement a task is allowed. Avoid unnecessary verification after implementation.
+
+## 5. File Editing Rules
+
+- Edit existing files instead of creating duplicate components.
+- Do not replace entire files when a small targeted edit is sufficient.
+- Preserve existing functionality and user-approved changes.
+- Do not modify unrelated components or styles.
+- Do not rename files or reorganize folders without a clear requirement.
+- Do not overwrite changes made by previous tasks.
+- If the requested change already exists, do not implement it again.
+
+## 6. Error Handling
+
+- If an operation fails, inspect the specific error once and attempt a focused fix.
+- Do not repeatedly retry the same failed operation.
+- Do not restart the entire task because of a small error.
+- Preserve all existing work.
+- If a required permission or external dependency blocks progress, explain the blocker briefly.
+- Never discard user changes to recover from an error.
+
+## 7. Permissions and Commands
+
+- Avoid terminal commands for tasks that can be completed by editing files directly.
+- Do not run unnecessary development servers or restart an already-running server.
+- Do not bypass mandatory permission or security controls.
+- Do not perform destructive commands without explicit authorization.
+
+## 8. Project-Specific Rules
+
+For Stalin AI Studio:
+
+- Preserve the existing React + Vite + JavaScript stack.
+- Maintain the premium dark navy, blue, purple, and cyan design.
+- Preserve the approved logo placements and brand identity.
+- Keep email and WhatsApp links accurate.
+- Do not invent working project demos, API integrations, or features.
+- Keep the original STAR Love Journal private; public demos must use separate sample data.
+- Do not deploy, publish, or push to production unless I explicitly request it.
+
+## 9. Response Format
+
+After completing a task, respond briefly:
+
+**Completed:** One-line description.
+
+**Files changed:** List only the files actually modified.
+
+**Blockers:** Mention only if something prevented completion.
+
+Do not provide long explanations, repeated summaries, unnecessary suggestions, or approval requests after ordinary coding changes.
+
+## FINAL RULE
+
+My default preference is FAST EXECUTION.
+
+For clear tasks, make the necessary changes immediately, minimize tool calls, avoid automatic testing, and stop as soon as the requested implementation is complete.
+
+Speed matters, but never sacrifice correctness, existing work, security, or data integrity.

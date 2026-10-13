@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Inquiries collection: public can ONLY create new validated inquiries.
+    // Public cannot read, update, or delete any inquiries.
+    match /inquiries/{inquiryId} {
+      // Deny all public read, update, and delete access to protect client privacy
+      allow read, update, delete: if request.auth != null;
+
+      // Allow public creation only if incoming document conforms to strict schema
+      allow create: if request.resource.data.keys().hasOnly(['name', 'email', 'service', 'projectBrief', 'status', 'createdAt'])
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() > 0
+                    && request.resource.data.name.size() <= 120
+                    && (request.resource.data.email == null || (request.resource.data.email is string && request.resource.data.email.size() <= 160))
+                    && request.resource.data.service is string
+                    && request.resource.data.service.size() > 0
+                    && request.resource.data.service.size() <= 120
+                    && request.resource.data.projectBrief is string
+                    && request.resource.data.projectBrief.size() > 0
+                    && request.resource.data.projectBrief.size() <= 5000
+                    && request.resource.data.status == 'new'
+                    && request.resource.data.createdAt == request.time;
+    }
+
+    // Default deny for all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

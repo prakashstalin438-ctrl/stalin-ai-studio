@@ -9,28 +9,28 @@ export const Footer = ({ onNavigate }) => {
   return (
     <footer style={{ borderTop: '1px solid var(--border-subtle)', background: '#05070c', paddingTop: 64, paddingBottom: 48, position: 'relative' }}>
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 40, marginBottom: 56 }}>
+        <div className="footer-grid">
           {/* Brand Info */}
-          <div style={{ gridColumn: 'span 2' }}>
+          <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
               <div
                 style={{
-                  width: 38,
-                  height: 38,
+                  width: 40,
+                  height: 40,
                   borderRadius: 10,
                   background: '#0a0d18',
                   border: '1px solid rgba(139, 92, 246, 0.35)',
                   overflow: 'hidden',
-                  flexShrink: 0,
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  flexShrink: 0
                 }}
               >
                 <img
                   src="/stalin-ai-logo.png"
-                  alt="Stalin AI Studio Logo"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  alt="Stalin AI Studio"
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                 />
               </div>
               <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.2rem', color: '#fff' }}>

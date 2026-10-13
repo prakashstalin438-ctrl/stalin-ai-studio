@@ -39,14 +39,40 @@ export const Navbar = ({ activeSection, onNavigate }) => {
           className="brand-logo"
           aria-label="Stalin AI Studio Home"
         >
-          <div className="brand-icon">
-            <span>S</span>
-            <span className="brand-status-dot"></span>
+          <div
+            style={{
+              width: 42,
+              height: 42,
+              borderRadius: 10,
+              background: '#0a0d18',
+              border: '1px solid rgba(139, 92, 246, 0.35)',
+              overflow: 'hidden',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0
+            }}
+          >
+            <img
+              src="/stalin-ai-logo.png"
+              alt="Stalin AI Studio"
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+            />
           </div>
           <div className="brand-text-wrap">
-            <span className="brand-name">
-              Stalin <span className="brand-name-accent">AI Studio</span>
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+              <span className="brand-name">
+                Stalin <span className="brand-name-accent">AI Studio</span>
+              </span>
+              <span
+                className="brand-live-indicator"
+                title="Available for projects"
+                aria-label="Online status"
+              >
+                <span className="brand-live-dot"></span>
+                <span className="brand-live-ring"></span>
+              </span>
+            </div>
             <span className="brand-subline">Intelligent Digital Products</span>
           </div>
         </a>

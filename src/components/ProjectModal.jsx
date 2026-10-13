@@ -152,7 +152,7 @@ export const ProjectModal = ({ project, initialTab = 'overview', onClose, onInqu
           {activeTab === 'overview' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               {/* Metrics Strip */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+              <div className="modal-metrics-grid">
                 {project.metrics.map((m, idx) => (
                   <div
                     key={idx}
@@ -236,7 +236,7 @@ export const ProjectModal = ({ project, initialTab = 'overview', onClose, onInqu
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-dim)', fontWeight: 600 }}>
                 Verified Implemented Capabilities
               </span>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
+              <div className="modal-features-grid">
                 {project.features.map((feat, index) => (
                   <div
                     key={index}
@@ -412,7 +412,7 @@ export const ProjectModal = ({ project, initialTab = 'overview', onClose, onInqu
                     </div>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gap: 8, paddingTop: 6 }}>
+                  <div className="modal-days-grid">
                     {Array.from({ length: 20 }, (_, i) => i + 1).map((day) => {
                       const isDone = completedDays.includes(day);
                       return (
@@ -474,7 +474,7 @@ export const ProjectModal = ({ project, initialTab = 'overview', onClose, onInqu
                     </div>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+                  <div className="modal-metrics-grid">
                     <div style={{ padding: '16px', borderRadius: 'var(--radius-sm)', background: 'rgba(139, 92, 246, 0.1)', border: '1px solid rgba(139, 92, 246, 0.25)' }}>
                       <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.725rem', color: 'var(--text-dim)' }}>Gross Sales</span>
                       <div style={{ fontSize: '1.35rem', fontWeight: 800, color: '#fff', margin: '4px 0' }}>

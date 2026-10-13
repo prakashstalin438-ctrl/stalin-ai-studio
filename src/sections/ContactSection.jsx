@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Mail,
   MessageCircle,
@@ -8,8 +8,13 @@ import {
   Sparkles,
   ArrowUpRight,
   ShieldCheck,
-  Phone
+  Phone,
+  AlertCircle,
+  CheckCircle2,
+  Loader2,
+  Database
 } from 'lucide-react';
+import { saveInquiryToFirestore, isFirebaseConfigured } from '../services/firebase';
 
 export const ContactSection = ({ defaultServiceTopic = '' }) => {
   const [name, setName] = useState('');
@@ -17,9 +22,27 @@ export const ContactSection = ({ defaultServiceTopic = '' }) => {
   const [service, setService] = useState(defaultServiceTopic || 'AI Application Development');
   const [message, setMessage] = useState('');
   const [copied, setCopied] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const recipientEmail = 'prakashstalin@gmail.com';
   const whatsappNumber = '918124787237';
+
+  const standardServices = [
+    'AI Application Development',
+    'Website Development',
+    'AI Agents and Chatbots',
+    'Workflow Automation',
+    'General Project Consultation'
+  ];
+
+  useEffect(() => {
+    if (defaultServiceTopic) {
+      setService(defaultServiceTopic);
+    }
+  }, [defaultServiceTopic]);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(recipientEmail);
@@ -27,32 +50,105 @@ export const ContactSection = ({ defaultServiceTopic = '' }) => {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const buildInquiryText = () => {
-    let text = `Hi Stalin,\n\n`;
-    if (name) text += `My name is ${name}.\n`;
-    if (email) text += `My email is ${email}.\n`;
-    text += `I am interested in discussing a project regarding: ${service}.\n\n`;
-    if (message) {
-      text += `Project details:\n${message}\n\n`;
-    } else {
-      text += `I would like to explore how Stalin AI Studio can help build our application.\n\n`;
+  const validate = () => {
+    const newErrors = {};
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    const trimmedMessage = message.trim();
+
+    if (!trimmedName) {
+      newErrors.name = 'Please enter your name.';
     }
-    text += `Looking forward to hearing from you!`;
-    return text;
+
+    if (!trimmedMessage) {
+      newErrors.message = 'Please provide a brief description of your project or questions.';
+    }
+
+    if (trimmedEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      newErrors.email = 'Please enter a valid email address (e.g. name@domain.com) or leave blank.';
+    }
+
+    setErrors(newErrors);
+    return {
+      isValid: Object.keys(newErrors).length === 0,
+      trimmedName,
+      trimmedEmail,
+      trimmedMessage
+    };
   };
 
   const handleWhatsAppSend = (e) => {
-    e.preventDefault();
-    const encoded = encodeURIComponent(buildInquiryText());
+    if (e) e.preventDefault();
+    const { isValid, trimmedName, trimmedEmail, trimmedMessage } = validate();
+    if (!isValid) return;
+
+    let text = `Hi Stalin,\n\n`;
+    text += `I would like to discuss a project with Stalin AI Studio.\n\n`;
+    text += `• Name: ${trimmedName}\n`;
+    if (trimmedEmail) {
+      text += `• Email: ${trimmedEmail}\n`;
+    }
+    text += `• Service Interested In: ${service}\n\n`;
+    text += `Project Brief / Questions:\n${trimmedMessage}\n\n`;
+    text += `Looking forward to your response!`;
+
+    const encoded = encodeURIComponent(text);
     const url = `https://wa.me/${whatsappNumber}?text=${encoded}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   const handleEmailSend = (e) => {
-    e.preventDefault();
-    const subject = encodeURIComponent(`Project Inquiry: ${service} — ${name || 'Client'}`);
-    const body = encodeURIComponent(buildInquiryText());
-    window.location.href = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
+    if (e) e.preventDefault();
+    const { isValid, trimmedName, trimmedEmail, trimmedMessage } = validate();
+    if (!isValid) return;
+
+    const subject = `New Project Inquiry - ${service}`;
+    let body = `Hi Stalin,\n\n`;
+    body += `I am reaching out regarding a project with Stalin AI Studio.\n\n`;
+    body += `• Name: ${trimmedName}\n`;
+    if (trimmedEmail) {
+      body += `• Email: ${trimmedEmail}\n`;
+    }
+    body += `• Service Interested In: ${service}\n\n`;
+    body += `Project Brief / Questions:\n${trimmedMessage}\n\n`;
+    body += `Looking forward to hearing from you!`;
+
+    const mailtoUrl = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+  };
+
+  const handleSaveInquiry = async (e) => {
+    if (e) e.preventDefault();
+    setSubmitError('');
+    setSubmitSuccess(false);
+
+    const { isValid, trimmedName, trimmedEmail, trimmedMessage } = validate();
+    if (!isValid) return;
+
+    setIsSubmitting(true);
+    try {
+      await saveInquiryToFirestore({
+        name: trimmedName,
+        email: trimmedEmail,
+        service,
+        message: trimmedMessage
+      });
+
+      setSubmitSuccess(true);
+    } catch (err) {
+      console.error('Failed to save inquiry to Firestore:', err);
+      if (err.code === 'FIREBASE_NOT_CONFIGURED') {
+        setSubmitError(
+          'Firebase Cloud Firestore is not yet configured with project credentials. Add your Firebase keys to .env to enable database saving, or reach out directly below via WhatsApp or Email.'
+        );
+      } else {
+        setSubmitError(
+          err.message || 'Unable to save inquiry to database. Your entered details have been preserved. You can also contact directly via WhatsApp or Email below.'
+        );
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -167,7 +263,7 @@ export const ContactSection = ({ defaultServiceTopic = '' }) => {
                     <img
                       src="/stalin-ai-logo.png"
                       alt="Stalin AI Studio"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />
                   </div>
                   <div>
@@ -235,67 +331,190 @@ export const ContactSection = ({ defaultServiceTopic = '' }) => {
                 </div>
               </div>
 
-              <form style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+              <form style={{ display: 'flex', flexDirection: 'column', gap: 16 }} onSubmit={(e) => e.preventDefault()}>
+                <div className="form-row-2col">
                   <div className="form-group">
-                    <label className="form-label" htmlFor="inquiry-name">Your Name</label>
+                    <label className="form-label" htmlFor="inquiry-name">
+                      Your Name <span style={{ color: '#fb7185' }}>*</span>
+                    </label>
                     <input
                       id="inquiry-name"
                       type="text"
-                      className="form-input"
+                      className={`form-input ${errors.name ? 'has-error' : ''}`}
                       placeholder="e.g. Alex"
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      aria-invalid={Boolean(errors.name)}
+                      aria-describedby={errors.name ? 'name-error' : undefined}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        if (errors.name) setErrors((prev) => ({ ...prev, name: '' }));
+                      }}
                     />
+                    {errors.name && (
+                      <span id="name-error" className="form-error-msg" role="alert">
+                        <AlertCircle style={{ width: 13, height: 13, flexShrink: 0 }} />
+                        <span>{errors.name}</span>
+                      </span>
+                    )}
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label" htmlFor="inquiry-email">Your Email (Optional)</label>
+                    <label className="form-label" htmlFor="inquiry-email">
+                      Your Email <span style={{ color: 'var(--text-dim)', fontWeight: 400 }}>(Optional)</span>
+                    </label>
                     <input
                       id="inquiry-email"
                       type="email"
-                      className="form-input"
+                      className={`form-input ${errors.email ? 'has-error' : ''}`}
                       placeholder="alex@company.com"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      aria-invalid={Boolean(errors.email)}
+                      aria-describedby={errors.email ? 'email-error' : undefined}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (errors.email) setErrors((prev) => ({ ...prev, email: '' }));
+                      }}
                     />
+                    {errors.email && (
+                      <span id="email-error" className="form-error-msg" role="alert">
+                        <AlertCircle style={{ width: 13, height: 13, flexShrink: 0 }} />
+                        <span>{errors.email}</span>
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="inquiry-service">Service Interested In</label>
+                  <label className="form-label" htmlFor="inquiry-service">
+                    Service Interested In
+                  </label>
                   <select
                     id="inquiry-service"
                     className="form-select"
                     value={service}
                     onChange={(e) => setService(e.target.value)}
                   >
-                    <option value="AI Application Development">AI Application Development</option>
-                    <option value="Website Development">Website Development</option>
-                    <option value="AI Agents and Chatbots">AI Agents and Chatbots</option>
-                    <option value="Workflow Automation">Workflow Automation</option>
-                    <option value="General Project Consultation">General Project Consultation</option>
+                    {!standardServices.includes(service) && (
+                      <option value={service}>{service}</option>
+                    )}
+                    {standardServices.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="inquiry-brief">Project Brief / Questions</label>
+                  <label className="form-label" htmlFor="inquiry-brief">
+                    Project Brief / Questions <span style={{ color: '#fb7185' }}>*</span>
+                  </label>
                   <textarea
                     id="inquiry-brief"
                     rows={4}
-                    className="form-textarea"
+                    className={`form-textarea ${errors.message ? 'has-error' : ''}`}
                     placeholder="Describe what you'd like to build, any specific features, goals, or target timelines..."
                     value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                    aria-invalid={Boolean(errors.message)}
+                    aria-describedby={errors.message ? 'message-error' : undefined}
+                    onChange={(e) => {
+                      setMessage(e.target.value);
+                      if (errors.message) setErrors((prev) => ({ ...prev, message: '' }));
+                    }}
                   ></textarea>
+                  {errors.message && (
+                    <span id="message-error" className="form-error-msg" role="alert">
+                      <AlertCircle style={{ width: 13, height: 13, flexShrink: 0 }} />
+                      <span>{errors.message}</span>
+                    </span>
+                  )}
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, paddingTop: 6 }}>
+                {/* Firestore Save Action */}
+                <button
+                  type="button"
+                  onClick={handleSaveInquiry}
+                  disabled={isSubmitting}
+                  className="btn btn-primary"
+                  style={{ width: '100%', fontSize: '0.9rem', padding: '14px', position: 'relative' }}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 style={{ width: 16, height: 16, animation: 'spin 1s linear infinite' }} />
+                      <span>Saving to Studio Database...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Database style={{ width: 16, height: 16 }} />
+                      <span>Save Inquiry to Studio Database</span>
+                    </>
+                  )}
+                </button>
+
+                {/* Firestore Success Notice */}
+                {submitSuccess && (
+                  <div
+                    style={{
+                      padding: '14px 16px',
+                      borderRadius: 'var(--radius-md)',
+                      background: 'rgba(16, 185, 129, 0.12)',
+                      border: '1px solid rgba(16, 185, 129, 0.3)',
+                      color: '#34d399',
+                      fontSize: '0.825rem',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: 10,
+                      lineHeight: 1.5
+                    }}
+                    role="status"
+                  >
+                    <CheckCircle2 style={{ width: 18, height: 18, flexShrink: 0, marginTop: 1 }} />
+                    <div>
+                      <strong style={{ display: 'block', color: '#fff', marginBottom: 2 }}>Inquiry Saved to Firestore!</strong>
+                      Your inquiry has been successfully recorded in the studio database. You can also follow up instantly on WhatsApp or Email below.
+                    </div>
+                  </div>
+                )}
+
+                {/* Firestore Error Notice */}
+                {submitError && (
+                  <div
+                    style={{
+                      padding: '14px 16px',
+                      borderRadius: 'var(--radius-md)',
+                      background: 'rgba(244, 63, 94, 0.1)',
+                      border: '1px solid rgba(244, 63, 94, 0.3)',
+                      color: '#fb7185',
+                      fontSize: '0.825rem',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: 10,
+                      lineHeight: 1.5
+                    }}
+                    role="alert"
+                  >
+                    <AlertCircle style={{ width: 18, height: 18, flexShrink: 0, marginTop: 1 }} />
+                    <div>
+                      <strong style={{ display: 'block', color: '#fff', marginBottom: 2 }}>Notice</strong>
+                      {submitError}
+                    </div>
+                  </div>
+                )}
+
+                {/* Direct Contact Channels Divider */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '4px 0' }}>
+                  <div style={{ flex: 1, height: 1, background: 'var(--border-subtle)' }}></div>
+                  <span style={{ fontSize: '0.725rem', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', color: 'var(--text-dim)', letterSpacing: '0.06em' }}>
+                    Or Chat Directly
+                  </span>
+                  <div style={{ flex: 1, height: 1, background: 'var(--border-subtle)' }}></div>
+                </div>
+
+                {/* Direct Action Buttons */}
+                <div className="form-btn-row">
                   <button
                     type="button"
                     onClick={handleWhatsAppSend}
                     className="btn btn-whatsapp"
-                    style={{ width: '100%', fontSize: '0.85rem', padding: '14px' }}
+                    style={{ width: '100%', fontSize: '0.85rem', padding: '13px' }}
                   >
                     <MessageCircle style={{ width: 16, height: 16 }} />
                     <span>Send on WhatsApp</span>
@@ -304,13 +523,16 @@ export const ContactSection = ({ defaultServiceTopic = '' }) => {
                   <button
                     type="button"
                     onClick={handleEmailSend}
-                    className="btn btn-primary"
-                    style={{ width: '100%', fontSize: '0.85rem', padding: '14px' }}
+                    className="btn btn-secondary"
+                    style={{ width: '100%', fontSize: '0.85rem', padding: '13px' }}
                   >
                     <Mail style={{ width: 16, height: 16 }} />
                     <span>Send via Email</span>
                   </button>
                 </div>
+                <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)', textAlign: 'center', margin: 0, paddingTop: 2 }}>
+                  WhatsApp and Email buttons open your chosen app with your inquiry details pre-filled.
+                </p>
               </form>
             </div>
           </div>
