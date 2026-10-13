@@ -10,26 +10,27 @@ export const Footer = ({ onNavigate }) => {
     <footer style={{ borderTop: '1px solid var(--border-subtle)', background: '#05070c', paddingTop: 64, paddingBottom: 48, position: 'relative' }}>
       <div className="container">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 40, marginBottom: 56 }}>
-          {/* Brand Info */}
+          {/* Brand Info with Custom Stalin AI Studio Logo */}
           <div style={{ gridColumn: 'span 2' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
               <div
                 style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 10,
-                  background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 800,
-                  color: '#fff',
-                  fontSize: '1.05rem'
+                  width: 44,
+                  height: 44,
+                  borderRadius: 12,
+                  background: '#0a0d18',
+                  border: '1px solid rgba(139, 92, 246, 0.4)',
+                  overflow: 'hidden',
+                  flexShrink: 0
                 }}
               >
-                S
+                <img
+                  src="/stalin-ai-logo.png"
+                  alt="Stalin AI Studio Logo"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
               </div>
-              <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.15rem', color: '#fff' }}>
+              <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.2rem', color: '#fff' }}>
                 Stalin <span style={{ color: 'var(--accent-purple-light)' }}>AI Studio</span>
               </span>
             </div>
