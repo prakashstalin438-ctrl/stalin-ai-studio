@@ -9,8 +9,27 @@ import {
   MessageSquare,
   ShieldCheck,
   Flame,
-  Play
+  Play,
+  ExternalLink
 } from 'lucide-react';
+
+const GithubIcon = ({ size = 15, style = {} }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    style={style}
+    aria-hidden="true"
+  >
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
 
 export const ProjectModal = ({ project, initialTab = 'overview', onClose, onInquire }) => {
   const [activeTab, setActiveTab] = useState(initialTab);
@@ -502,8 +521,8 @@ export const ProjectModal = ({ project, initialTab = 'overview', onClose, onInqu
                 </div>
               )}
 
-              {/* AI Job Apply Interactive */}
-              {project.id === 'ai-job-apply' && (
+              {/* CareerOS / AI Job Apply Interactive */}
+              {(project.id === 'careeros' || project.id === 'ai-job-apply') && (
                 <div style={{ padding: '24px', borderRadius: 'var(--radius-lg)', background: '#080c16', border: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: 16 }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 12, borderBottom: '1px solid var(--border-subtle)' }}>
                     <div>
@@ -604,17 +623,51 @@ export const ProjectModal = ({ project, initialTab = 'overview', onClose, onInqu
             {project.demoNote}
           </span>
 
-          <button
-            onClick={() => {
-              onClose();
-              onInquire(project.title);
-            }}
-            className="btn btn-primary"
-            style={{ padding: '10px 18px', fontSize: '0.85rem' }}
-          >
-            <MessageSquare style={{ width: 15, height: 15 }} />
-            <span>Inquire About Similar Project</span>
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+                style={{ padding: '9px 14px', fontSize: '0.825rem' }}
+                title="View GitHub Repository"
+              >
+                <GithubIcon size={14} style={{ color: 'var(--accent-purple-light)' }} />
+                <span>GitHub</span>
+              </a>
+            )}
+
+            {project.liveDemoAvailable && project.liveDemoUrl && (
+              <a
+                href={project.liveDemoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+                style={{ padding: '9px 16px', fontSize: '0.825rem' }}
+              >
+                <span>Live Demo</span>
+                <ExternalLink style={{ width: 14, height: 14 }} />
+              </a>
+            )}
+
+            <button
+              onClick={() => {
+                onClose();
+                onInquire(project.title);
+              }}
+              className="btn btn-secondary"
+              style={{
+                padding: '9px 16px',
+                fontSize: '0.825rem',
+                background: project.liveDemoAvailable ? 'rgba(255, 255, 255, 0.05)' : 'var(--accent-purple)',
+                color: '#fff'
+              }}
+            >
+              <MessageSquare style={{ width: 14, height: 14 }} />
+              <span>Inquire</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

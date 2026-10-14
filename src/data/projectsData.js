@@ -44,6 +44,7 @@ export const projectsData = [
     ],
     liveDemoAvailable: true,
     liveDemoUrl: 'https://genai-60-day-tracker.web.app',
+    githubUrl: 'https://github.com/prakashstalin438-ctrl/learn-60',
     demoNote: 'Live web app running on Firebase Hosting. Interactive preview and screenshots below.'
   },
   {
@@ -84,48 +85,51 @@ export const projectsData = [
     ],
     liveDemoAvailable: true,
     liveDemoUrl: 'https://novacart-dashboard.vercel.app/',
+    githubUrl: 'https://github.com/prakashstalin438-ctrl/novacart-dashboard',
     demoNote: 'Live web app running on Vercel. High-density SaaS layout showcase with verified architecture details.'
   },
   {
-    id: 'ai-job-apply',
-    title: 'AI Job Apply',
-    subtitle: 'CareerOS — AI-Assisted Job Application System',
-    category: 'AI Job Application Project',
+    id: 'careeros',
+    title: 'CareerOS — AI Career Operating System',
+    subtitle: 'AI Career Platform / Full-Stack Web Application',
+    category: 'AI Career Platform / Full-Stack Web Application',
     tag: 'AI Applications',
     badge: 'AI Application',
     description:
-      'An intelligent career platform that helps job seekers navigate modern hiring. Features automated resume parsing, multi-point ATS job-to-resume matching, skill-gap radar analysis, and AI-tailored cover letter drafting.',
+      'A modern AI-powered career operating system featuring job discovery, application tracking, interview preparation, career insights, and a personalized career dashboard.',
     verifiedTech: [
       'React 19',
       'TypeScript',
       'Vite',
-      'Firebase Firestore',
-      'Mammoth.js',
-      'PDF.js',
-      'Lucide Icons'
+      'Firebase Authentication',
+      'Firestore',
+      'Vercel'
     ],
     thumbnail: '/images/careeros.jpg',
     screenshots: [
-      { url: '/images/careeros.jpg', caption: 'AI Resume Matcher & Application Pipeline' }
+      { url: '/images/careeros.jpg', caption: 'Interactive Career Dashboard & ATS Job Matcher' }
     ],
     features: [
-      'Document Parsing Engine supporting PDF and Word (.docx) formats',
-      'Algorithmic Job-to-Resume Match Scoring with matched vs missing skill breakdown',
-      'Skill-Gap Radar Analysis identifying high-impact keywords to learn',
-      'Interactive Kanban Application Pipeline (Applied, Interviewing, Offer)',
-      'Context-Aware AI Cover Letter Generator creating customized drafts'
+      'Interactive career dashboard with target role tracking and progress insights',
+      'Job matching interface with semantic ATS scoring and matched skill breakdown',
+      'Application tracking pipeline with customizable Kanban workflow stages',
+      'Interview preparation module with targeted drills and performance feedback',
+      'Dual authentication supporting Firebase Google sign-in and login-free demo mode using fictional sample data',
+      'Automated resume intelligence engine with client-side document extraction'
     ],
     overview:
-      'CareerOS replaces fragmented job hunts with an end-to-end AI career operating system. Rather than blind auto-applying, it parses candidate resumes, computes semantic alignment against job specifications, highlights exact missing skills, and organizes the pipeline.',
+      'CareerOS is an end-to-end AI career operating system built to streamline modern job seeking. It unifies job discovery, intelligent resume parsing, semantic ATS matching, skill-gap analysis, interview preparation, and real-time application tracking into a cohesive SaaS dashboard.',
     architecture:
-      'Architected in TypeScript with React 19 and Vite. Utilizes PDF.js and Mammoth for client-side document extraction, Firebase Firestore for structured pipeline synchronization, and modular AI prompt adapters for cover letter generation.',
+      'Architected in TypeScript with React 19 and Vite for instant load times. Features Firebase Authentication with Google sign-in and a login-free demo mode, Cloud Firestore for synchronized application tracking, client-side document parsing via PDF.js and Mammoth.js, and production hosting on Vercel.',
     metrics: [
-      { label: 'AI Match Accuracy', value: '94% Score' },
-      { label: 'Skills Analyzed', value: '18 Points' },
-      { label: 'Supported Formats', value: 'PDF & DOCX' }
+      { label: 'Architecture', value: 'React + TS' },
+      { label: 'Data Store', value: 'Firestore' },
+      { label: 'Hosting', value: 'Vercel' }
     ],
-    liveDemoAvailable: false,
-    demoNote: 'Public showcase uses dummy applicant profiles and sample job postings.'
+    liveDemoAvailable: true,
+    liveDemoUrl: 'https://careeros-pi-two.vercel.app/',
+    githubUrl: 'https://github.com/prakashstalin438-ctrl/careeros',
+    demoNote: 'Live web app running on Vercel with Google auth and login-free sample demo mode.'
   },
   {
     id: 'star-love-journal',
@@ -167,6 +171,7 @@ export const projectsData = [
     ],
     liveDemoAvailable: true,
     liveDemoUrl: 'https://star-love-journal-demo.vercel.app/',
+    githubUrl: 'https://github.com/prakashstalin438-ctrl/star-love-journal-demo',
     demoNote: 'Public concept demo with sanitized sample media and dummy memories.'
   }
 ];

@@ -17,9 +17,10 @@ Built with React 19, Vite, and custom modern Vanilla CSS.
    - Real-time revenue KPIs, conversion analytics, and inventory health monitors.
    - Inspected & verified against `D:\MY ANTIG PROJECT`.
 
-3. **AI Job Apply** — *CareerOS — AI-Assisted Job Application System*
-   - Automated resume parsing, ATS job-to-resume matching, skill-gap radar, and AI cover letter drafting.
-   - Inspected & verified against `D:\CareerOS`.
+3. **CareerOS — AI Career Operating System**
+   - Modern AI-powered career operating system with job discovery, application tracking, interview preparation, career insights, and personal dashboard.
+   - Live Demo: [https://careeros-pi-two.vercel.app/](https://careeros-pi-two.vercel.app/) | GitHub: [https://github.com/prakashstalin438-ctrl/careeros](https://github.com/prakashstalin438-ctrl/careeros)
+   - Verified Stack: React 19, TypeScript, Vite, Firebase Authentication, Cloud Firestore, Vercel.
 
 4. **STAR Love Journal** — *Personal Memory & Milestone Journal Concept*
    - Anniversary countdown, photo memory gallery, and audio voice note waveforms.
@@ -61,5 +62,5 @@ npm run build
 ## 📬 Contact & Inquiries
 
 - **Lead Engineer:** Stalin
-- **Email:** [prakashstalin@gmail.com](mailto:prakashstalin@gmail.com)
+- **Email:** [prakashstalin438@gmail.com](mailto:prakashstalin438@gmail.com)
 - **WhatsApp:** [+91 81247 87237](https://wa.me/918124787237)
