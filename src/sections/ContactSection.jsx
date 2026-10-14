@@ -27,7 +27,7 @@ export const ContactSection = ({ defaultServiceTopic = '' }) => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
-  const recipientEmail = 'prakashstalin@gmail.com';
+  const recipientEmail = 'prakashstalin438@gmail.com';
   const whatsappNumber = '918124787237';
 
   const standardServices = [

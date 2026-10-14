@@ -168,11 +168,11 @@ export const Navbar = ({ activeSection, onNavigate }) => {
             </a>
 
             <a
-              href="mailto:prakashstalin@gmail.com"
+              href="mailto:prakashstalin438@gmail.com"
               className="btn btn-secondary"
               style={{ width: '100%', fontSize: '0.875rem' }}
             >
-              <span>Email: prakashstalin@gmail.com</span>
+              <span>Email: prakashstalin438@gmail.com</span>
             </a>
           </div>
         </div>

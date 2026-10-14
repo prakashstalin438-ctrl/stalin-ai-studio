@@ -17,7 +17,7 @@ The website should showcase AI applications, websites, dashboards, AI agents and
 
 - **Name:** Stalin
 - **Brand:** Stalin AI Studio
-- **Email:** prakashstalin@gmail.com
+- **Email:** prakashstalin438@gmail.com
 - **Phone / WhatsApp:** +91 81247 87237
 - **Project folder:** `stalin-ai-studio`
 
@@ -194,7 +194,7 @@ Do not invent:
 Display:
 
 - **Name:** Stalin
-- **Email:** prakashstalin@gmail.com
+- **Email:** prakashstalin438@gmail.com
 - **WhatsApp:** +91 81247 87237
 
 ### Functional buttons

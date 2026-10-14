@@ -92,11 +92,11 @@ export const Footer = ({ onNavigate }) => {
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12, fontSize: '0.875rem' }}>
               <li>
                 <a
-                  href="mailto:prakashstalin@gmail.com"
+                  href="mailto:prakashstalin43@gmail.com"
                   style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'var(--text-sub)' }}
                 >
                   <Mail style={{ width: 16, height: 16, color: 'var(--accent-purple-light)' }} />
-                  <span>prakashstalin@gmail.com</span>
+                  <span>prakashstalin438@gmail.com</span>
                 </a>
               </li>
               <li>
